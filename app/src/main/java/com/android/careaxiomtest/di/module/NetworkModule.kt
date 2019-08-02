@@ -22,18 +22,20 @@ class NetworkModule constructor(val context: Context) {
 
     @Provides
     @Singleton
-    fun provideRetrofitInterface(): Retrofit {
+    fun provideRetrofitInterface(okHttpClient: OkHttpClient): Retrofit {
 
         return Retrofit.Builder()
             .baseUrl(BASE_URL)
             .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
             .addConverterFactory(GsonConverterFactory.create())
+            .client(okHttpClient)
+
             .build()
     }
 
     @Provides
     @Singleton
-    fun provideRequestOkHttpClient(okHttpClient: OkHttpClient): OkHttpClient {
+    fun provideRequestOkHttpClient(): OkHttpClient {
         //Logging interceptor
         val logging = HttpLoggingInterceptor()
         logging.setLevel(HttpLoggingInterceptor.Level.BODY);
@@ -56,12 +58,11 @@ class NetworkModule constructor(val context: Context) {
                         "public, only-if-cached, max-stale=" + 60 * 60 * 24 * 28
                     ).build()
                 }
-                //Pragma
                 chain.proceed(request)
             }
             .addInterceptor(logging)
             .build()
-        
+
     }
 
 
