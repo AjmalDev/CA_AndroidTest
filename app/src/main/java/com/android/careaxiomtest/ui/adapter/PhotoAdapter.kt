@@ -64,7 +64,7 @@ class PhotoAdapter(private val retryCallback: () -> Unit) :
             }
         }
     }
-    
+
 
 
     companion object {
