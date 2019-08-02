@@ -9,6 +9,7 @@ import dagger.Provides
 import dagger.Reusable
 import okhttp3.Cache
 import okhttp3.CacheControl
+import okhttp3.Interceptor
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
 import retrofit2.Retrofit
@@ -35,7 +36,7 @@ class NetworkModule constructor(val context: Context) {
 
     @Provides
     @Singleton
-    fun provideRequestOkHttpClient(): OkHttpClient {
+    fun provideRequestOkHttpClient(responseInterceptor: Interceptor): OkHttpClient {
         //Logging interceptor
         val logging = HttpLoggingInterceptor()
         logging.setLevel(HttpLoggingInterceptor.Level.BODY);
@@ -60,11 +61,26 @@ class NetworkModule constructor(val context: Context) {
                 }
                 chain.proceed(request)
             }
+            .addNetworkInterceptor(responseInterceptor)
             .addInterceptor(logging)
             .build()
-
     }
 
+    @Provides
+    @Singleton
+    fun provideResponseInterceptor(): Interceptor {
+        return Interceptor { chain ->
+            val originalResponse = chain.proceed(chain.request())
+            originalResponse.newBuilder()
+                .removeHeader("pragma")
+                .addHeader("pragma", "cache")
+                .header(
+                    "Cache-Control",
+                    String.format("max-age=%d", 60)
+                )
+                .build()
+        }
+    }
 
     @Provides
     @Reusable
