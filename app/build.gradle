@@ -14,7 +14,7 @@ android {
         targetSdkVersion 28
         versionCode 1
         versionName "1.0"
-        testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
+        testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
     }
     buildTypes {
         release {
@@ -45,8 +45,13 @@ dependencies {
 
 
     testImplementation 'junit:junit:4.12'
-    androidTestImplementation 'com.android.support.test:runner:1.0.2'
-    androidTestImplementation 'com.android.support.test.espresso:espresso-core:3.0.2'
+    androidTestImplementation 'androidx.test:runner:1.1.0-alpha4'
+    androidTestImplementation 'androidx.test.espresso:espresso-core:3.1.0-alpha4'
+    testImplementation 'androidx.arch.core:core-testing:2.0.1'
+    testImplementation 'org.mockito:mockito-core:2.28.2'
+    androidTestImplementation "androidx.arch.core:core-testing:2.0.1"
+
+
     implementation "androidx.lifecycle:lifecycle-extensions:$lifecycle_version"
 
 
@@ -88,6 +93,8 @@ dependencies {
     implementation "io.reactivex.rxjava2:rxjava:$rxjava_version"
     implementation "io.reactivex.rxjava2:rxandroid:$rxandroid_version"
 
+    //Paging
+    implementation 'androidx.paging:paging-runtime:2.0.0-beta01'
 
 
 }

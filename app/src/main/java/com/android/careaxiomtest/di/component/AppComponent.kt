@@ -1,7 +1,8 @@
 package com.android.careaxiomtest.di.component
 
-import com.android.careaxiomtest.ui.MainActivity
 import com.android.careaxiomtest.di.module.NetworkModule
+import com.android.careaxiomtest.ui.MainActivity
+import com.echo.careaxiomtest2.ui.adapter.paging.PhotoDataSourceFactory
 import dagger.Component
 import javax.inject.Singleton
 
@@ -11,6 +12,8 @@ import javax.inject.Singleton
 interface AppComponent {
 
     fun inject(activity: MainActivity)
+    fun inject(photoSource: PhotoDataSourceFactory)
+
 
     @Component.Builder
     interface Builder {
