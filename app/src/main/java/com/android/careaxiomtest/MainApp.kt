@@ -12,9 +12,10 @@ class MainApp : Application() {
         lateinit var appCompnent: AppComponent
     }
 
+
     override fun onCreate() {
         super.onCreate()
         appCompnent = DaggerAppComponent.builder().buildNetworkModule(NetworkModule(applicationContext)).build()
     }
-
 }
+

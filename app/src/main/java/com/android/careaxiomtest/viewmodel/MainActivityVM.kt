@@ -5,7 +5,6 @@ import androidx.lifecycle.Transformations
 import androidx.lifecycle.ViewModel
 import androidx.paging.LivePagedListBuilder
 import androidx.paging.PagedList
-import com.android.careaxiomtest.data.Photo
 import com.echo.careaxiomtest2.data.model.NetworkState
 import com.echo.careaxiomtest2.ui.adapter.paging.PhotoDataSource
 import com.echo.careaxiomtest2.ui.adapter.paging.PhotoDataSourceFactory
@@ -13,10 +12,12 @@ import io.reactivex.disposables.CompositeDisposable
 
 class MainActivityVM : ViewModel() {
 
-    var photos: LiveData<PagedList<Photo>>
+    var photos: LiveData<PagedList<Any>>
+
     private val compositeDisposable: CompositeDisposable = CompositeDisposable()
     private val pageSize = 8
     private val sourceFactory: PhotoDataSourceFactory
+
 
     init {
         sourceFactory =
@@ -26,7 +27,12 @@ class MainActivityVM : ViewModel() {
             .setInitialLoadSizeHint(pageSize * 2)
             .setEnablePlaceholders(false)
             .build()
-        photos = LivePagedListBuilder<Long, Photo>(sourceFactory, config).build()
+        photos = LivePagedListBuilder<Long, Any>(sourceFactory, config).build()
+    }
+
+
+    fun retryRequest() {
+        sourceFactory.photoDSLive.value?.retryRequest()
     }
 
 

@@ -1,16 +1,16 @@
 package com.echo.careaxiomtest2.ui.adapter.paging
 
-import androidx.paging.DataSource
 import androidx.lifecycle.MutableLiveData
+import androidx.paging.DataSource
 import com.android.careaxiomtest.MainApp
-import com.android.careaxiomtest.data.Photo
 import com.android.careaxiomtest.network.NetworkService
 import io.reactivex.disposables.CompositeDisposable
 import javax.inject.Inject
 
 class PhotoDataSourceFactory constructor(
     private val compositeDisposable: CompositeDisposable
-) : DataSource.Factory<Long, Photo>() {
+) : DataSource.Factory<Long, Any>() {
+
 
     @Inject
     lateinit var networkService: NetworkService
@@ -21,8 +21,8 @@ class PhotoDataSourceFactory constructor(
         MainApp.appCompnent.inject(this)
     }
 
-    override fun create(): DataSource<Long, Photo> {
-       // Log.i("PDSF", "onCreate")
+    override fun create(): DataSource<Long, Any> {
+        // Log.i("PDSF", "onCreate")
 
         val dataSource = PhotoDataSource(
             compositeDisposable,

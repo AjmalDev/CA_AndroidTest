@@ -1,15 +1,14 @@
 package com.android.careaxiomtest.ui
 
 import android.os.Bundle
+import android.util.Log
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
-import androidx.paging.PagedList
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.android.careaxiomtest.MainApp
 import com.android.careaxiomtest.R
-import com.android.careaxiomtest.data.Photo
 import com.android.careaxiomtest.viewmodel.MainActivityVM
 import com.echo.careaxiomtest2.data.model.NetworkState
 import com.echo.careaxiomtest2.ui.adapter.PhotoAdapter
@@ -32,17 +31,17 @@ class MainActivity : AppCompatActivity() {
         initAdapter()
     }
 
-
     fun initAdapter() {
         val gridLayoutManager = GridLayoutManager(this, 1)
         gridLayoutManager.orientation = RecyclerView.VERTICAL
         val userAdapter = PhotoAdapter {
-
+            viewModel?.retryRequest()
         }
-
         recyclerview.layoutManager = gridLayoutManager
         recyclerview.adapter = userAdapter
-        viewModel.photos?.observe(this, Observer<PagedList<Photo>> {
+
+        viewModel.photos?.observe(this, Observer {
+            Log.i("Test321", "list paged size received = " + it.size)
             userAdapter.submitList(it)
         })
         viewModel.getNetworkState().observe(this, Observer<NetworkState> { userAdapter.setNetworkState(it) })

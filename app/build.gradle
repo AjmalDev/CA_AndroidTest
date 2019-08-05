@@ -96,5 +96,6 @@ dependencies {
     //Paging
     implementation 'androidx.paging:paging-runtime:2.0.0-beta01'
 
-
+    // Timber for logging
+    implementation 'com.jakewharton.timber:timber:4.6.1'
 }

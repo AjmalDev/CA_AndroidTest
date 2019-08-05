@@ -14,9 +14,10 @@ class ViewHolderPhoto(view: View) : RecyclerView.ViewHolder(view) {
 
     fun bindTo(photo: Photo?) {
         itemView.tvPhotoTitle.text = photo?.title
-
-        Glide.with(itemView.context).load(photo?.thumbnails).diskCacheStrategy(DiskCacheStrategy.ALL).placeholder(R.mipmap.ic_launcher).into(itemView.imgPhoto);
+        Glide.with(itemView.context).load(photo?.thumbnails).diskCacheStrategy(DiskCacheStrategy.ALL)
+            .placeholder(R.mipmap.ic_launcher).into(itemView.imgPhoto);
     }
+
 
     companion object {
         fun create(parent: ViewGroup): ViewHolderPhoto {

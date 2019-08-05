@@ -24,9 +24,11 @@ class ViewHolderNetwork(val view: View, private val retryCallback: () -> Unit) :
 //        loading and retry
         itemView.retryLoadingButton.visibility = if (networkState?.status == Status.FAILED) View.VISIBLE else View.GONE
         itemView.loadingProgressBar.visibility = if (networkState?.status == Status.RUNNING) View.VISIBLE else View.GONE
-
+        itemView.retryLoadingButton.setOnClickListener {
+            retryCallback()
+        }
     }
-    
+
     companion object {
         fun create(parent: ViewGroup, retryCallback: () -> Unit): ViewHolderNetwork {
             val layoutInflater = LayoutInflater.from(parent.context)
