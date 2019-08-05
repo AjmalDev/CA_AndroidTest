@@ -69,6 +69,7 @@ A better approach would be using [BoundaryCallback](https://developer.android.co
 
 - I have used physical device Nexus 6P for testing the app. Please consider running on a physical device.  
 
+- I haven't written unit tests using dagger in kotlin lately, so i might require some more time for mocking PagedList and Dagger dependencies.
 
 - Please feel free to contact me in case of any query or if another task is needed to be done in the initial assessment phase. 
 
