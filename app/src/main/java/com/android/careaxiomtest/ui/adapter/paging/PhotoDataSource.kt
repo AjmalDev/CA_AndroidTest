@@ -63,9 +63,7 @@ class PhotoDataSource(
     override fun loadAfter(params: LoadParams<Long>, callback: LoadCallback<Long, Any>) {
         networkState.postValue(NetworkState.LOADING)
 
-        Log.i("Retry", "Request key= " + params.key + " ")
         networkService.getPhotos(params.key).subscribe({ photos ->
-            Log.i("Retry", "Inside request response")
             networkState.postValue(NetworkState.LOADED)
             // clear retry since last request succeeded
             addRetry(null)
@@ -73,7 +71,6 @@ class PhotoDataSource(
             callback.onResult(listPhotos, params.key + 1)
 
         }, { throwable ->
-            Log.i("Retry", "Inside failure" + throwable.message)
 
             Timber.e(throwable.message)
             addRetry(Action { loadAfter(params, callback) })

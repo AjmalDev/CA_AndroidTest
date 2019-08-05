@@ -41,9 +41,7 @@ class MainActivityVM : ViewModel() {
 
     override fun onCleared() {
         super.onCleared()
-        if (compositeDisposable != null) {
             compositeDisposable.dispose()
-        }
     }
 
 }

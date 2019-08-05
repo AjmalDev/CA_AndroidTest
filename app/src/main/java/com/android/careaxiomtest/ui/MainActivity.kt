@@ -35,13 +35,12 @@ class MainActivity : AppCompatActivity() {
         val gridLayoutManager = GridLayoutManager(this, 1)
         gridLayoutManager.orientation = RecyclerView.VERTICAL
         val userAdapter = PhotoAdapter {
-            viewModel?.retryRequest()
+            viewModel.retryRequest()
         }
         recyclerview.layoutManager = gridLayoutManager
         recyclerview.adapter = userAdapter
 
-        viewModel.photos?.observe(this, Observer {
-            Log.i("Test321", "list paged size received = " + it.size)
+        viewModel.photos.observe(this, Observer {
             userAdapter.submitList(it)
         })
         viewModel.getNetworkState().observe(this, Observer<NetworkState> { userAdapter.setNetworkState(it) })

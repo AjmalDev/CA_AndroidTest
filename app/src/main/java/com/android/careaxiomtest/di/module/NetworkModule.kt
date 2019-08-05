@@ -18,6 +18,8 @@ import retrofit2.converter.gson.GsonConverterFactory
 import javax.inject.Singleton
 
 
+
+
 @Module
 class NetworkModule constructor(val context: Context) {
 
@@ -39,7 +41,7 @@ class NetworkModule constructor(val context: Context) {
     fun provideRequestOkHttpClient(responseInterceptor: Interceptor): OkHttpClient {
         //Logging interceptor
         val logging = HttpLoggingInterceptor()
-        logging.setLevel(HttpLoggingInterceptor.Level.BODY);
+        logging.level = HttpLoggingInterceptor.Level.BODY;
 
         //Creating Cache sizes
         val cacheSize = (5 * 1024 * 1024).toLong()
